@@ -7,6 +7,7 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
     replace: true,
     scope: {
       options: '=',
+      chart: '=',
       height: '@',
       width: '@'
     },
@@ -17,6 +18,7 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
       var id = getIdForUseInAmCharts();
       $el.attr('id', id);
       var chart;
+      $scope.chart = chart;
 
       // allow $scope.options to be a promise
       $q.when($scope.options).then(function(options){
@@ -226,6 +228,7 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
 
                 // WRITE
                 chart.write(id);
+                $scope.chart = chart;
 
               });
           }; //renderchart
