@@ -9,7 +9,8 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
       options: '=',
       chart: '=',
       height: '@',
-      width: '@'
+      width: '@',
+      id: '@'
     },
     template: '<div class="amchart"></div>',
     link: function ($scope, $el) {
@@ -194,10 +195,19 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
 
                 if(o.export) {
                   chart.amExport = o.export;
+                  chart.export = o.export;
+                }
+
+                if(o.responsive) {
+                  chart.responsive = o.responsive;
                 }
 
                 if(o.colors) {
                   chart.colors = o.colors;
+                }
+                
+                if(o.defs) {
+                  chart.defs = o.defs;
                 }
 
                 if(o.listeners) {
@@ -275,7 +285,7 @@ angular.module('amChartsDirective', []).directive('amChart', ['$q', function ($q
       });
 
       function getIdForUseInAmCharts(){
-        var id = $el[0].id;// try to use existing outer id to create new id
+        var id = $scope.id;// try to use existing outer id to create new id
 
         if (!id){//generate a UUID
           var guid = function guid() {
